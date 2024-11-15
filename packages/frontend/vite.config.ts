@@ -168,7 +168,7 @@ export function getConfig(): UserConfig {
 
 			// https://vitejs.dev/guide/dep-pre-bundling.html#monorepos-and-linked-dependencies
 			commonjsOptions: {
-				include: [/fedired-js/, /fedired-reversi/, /misskey-bubble-game/, /node_modules/],
+				include: [/fedired-js/, /fedired-reversi/, /fedired-bubble-game/, /node_modules/],
 			},
 		},
 

@@ -7,4 +7,4 @@ packages:
  - 'packages/fedired-js'
  - 'packages/fedired-js/generator'
  - 'packages/fedired-reversi'
- - 'packages/misskey-bubble-game'
+ - 'packages/fedired-bubble-game'

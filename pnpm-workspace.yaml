@@ -1,0 +1,10 @@
+packages:
+ - 'packages/backend'
+ - 'packages/frontend-shared'
+ - 'packages/frontend'
+ - 'packages/frontend-embed'
+ - 'packages/sw'
+ - 'packages/fedired-js'
+ - 'packages/fedired-js/generator'
+ - 'packages/fedired-reversi'
+ - 'packages/fedired-bubble-game'

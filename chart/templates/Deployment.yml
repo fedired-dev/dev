@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fedired.fullname" . }}
+  labels:
+    {{- include "fedired.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "fedired.selectorLabels" . | nindent 6 }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        {{- include "fedired.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: fedired
+          image: {{ .Values.image }}
+          env:
+            - name: NODE_ENV
+              value: {{ .Values.environment }}
+          volumeMounts:
+            - name: {{ include "fedired.fullname" . }}-configuration
+              mountPath: /fedired/.config
+              readOnly: true
+          ports:
+            - containerPort: 3000
+        - name: postgres
+          image: postgres:15-alpine
+          env:
+            - name: POSTGRES_USER
+              value: "example-fedired-user"
+            - name: POSTGRES_PASSWORD
+              value: "example-fedired-pass"
+            - name: POSTGRES_DB
+              value: "fedired"
+          ports:
+            - containerPort: 5432
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - containerPort: 6379
+      volumes:
+        - name: {{ include "fedired.fullname" . }}-configuration
+          configMap:
+            name: {{ include "fedired.fullname" . }}-configuration

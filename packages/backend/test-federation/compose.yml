@@ -1,0 +1,133 @@
+include:
+  - ./compose.a.yml
+  - ./compose.b.yml
+
+services:
+  setup:
+    extends:
+      file: ./compose.tpl.yml
+      service: fedired
+    command: >
+      bash -c "
+        corepack enable && corepack prepare
+        pnpm -F backend i
+        pnpm -F fedired-js i
+        pnpm -F fedired-reversi i
+      "
+
+  tester:
+    image: node:20
+    depends_on:
+      a.test:
+        condition: service_healthy
+      b.test:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=development
+      - NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/rootCA.crt
+    volumes:
+      - type: bind
+        source: ../package.json
+        target: /fedired/packages/backend/package.json
+        read_only: true
+      - type: bind
+        source: ../test/resources
+        target: /fedired/packages/backend/test/resources
+        read_only: true
+      - type: bind
+        source: ./test
+        target: /fedired/packages/backend/test-federation/test
+        read_only: true
+      - type: bind
+        source: ../jest.config.cjs
+        target: /fedired/packages/backend/jest.config.cjs
+        read_only: true
+      - type: bind
+        source: ../jest.config.fed.cjs
+        target: /fedired/packages/backend/jest.config.fed.cjs
+        read_only: true
+      - type: bind
+        source: ../../fedired-js/built
+        target: /fedired/packages/fedired-js/built
+        read_only: true
+      - type: bind
+        source: ../../fedired-js/package.json
+        target: /fedired/packages/fedired-js/package.json
+        read_only: true
+      - type: bind
+        source: ../../../package.json
+        target: /fedired/package.json
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-lock.yaml
+        target: /fedired/pnpm-lock.yaml
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-workspace.yaml
+        target: /fedired/pnpm-workspace.yaml
+        read_only: true
+      - type: bind
+        source: ./certificates/rootCA.crt
+        target: /usr/local/share/ca-certificates/rootCA.crt
+        read_only: true
+    working_dir: /fedired
+    entrypoint: >
+      bash -c '
+        corepack enable && corepack prepare
+        pnpm -F fedired-js i --frozen-lockfile
+        pnpm -F backend i --frozen-lockfile
+        exec "$0" "$@"
+      '
+    command: pnpm -F backend test:fed
+
+  daemon:
+    image: node:20
+    depends_on:
+      redis.test:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ../package.json
+        target: /fedired/packages/backend/package.json
+        read_only: true
+      - type: bind
+        source: ./daemon.ts
+        target: /fedired/packages/backend/test-federation/daemon.ts
+        read_only: true
+      - type: bind
+        source: ./tsconfig.json
+        target: /fedired/packages/backend/test-federation/tsconfig.json
+        read_only: true
+      - type: bind
+        source: ../../../package.json
+        target: /fedired/package.json
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-lock.yaml
+        target: /fedired/pnpm-lock.yaml
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-workspace.yaml
+        target: /fedired/pnpm-workspace.yaml
+        read_only: true
+    working_dir: /fedired
+    command: >
+      bash -c "
+        corepack enable && corepack prepare
+        pnpm -F backend i --frozen-lockfile
+        pnpm exec tsc -p ./packages/backend/test-federation
+        node ./packages/backend/test-federation/built/daemon.js
+      "
+
+  redis.test:
+    image: redis:7-alpine
+    volumes:
+      - type: bind
+        source: ./volumes/redis
+        target: /data
+        bind:
+          create_host_path: true
+    healthcheck:
+      test: redis-cli ping
+      interval: 5s
+      retries: 20

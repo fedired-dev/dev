@@ -1,0 +1,101 @@
+services:
+  nginx:
+    image: nginx:1.27
+    volumes:
+      - type: bind
+        source: ./certificates/rootCA.crt
+        target: /etc/nginx/certificates/rootCA.crt
+        read_only: true
+    healthcheck:
+      test: service nginx status
+      interval: 5s
+      retries: 20
+
+  fedired:
+    image: node:20
+    env_file:
+      - ./.config/docker.env
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - type: bind
+        source: ../../../built
+        target: /fedired/built
+        read_only: true
+      - type: bind
+        source: ../assets
+        target: /fedired/packages/backend/assets
+        read_only: true
+      - type: bind
+        source: ../built
+        target: /fedired/packages/backend/built
+        read_only: true
+      - type: bind
+        source: ../migration
+        target: /fedired/packages/backend/migration
+        read_only: true
+      - type: bind
+        source: ../ormconfig.js
+        target: /fedired/packages/backend/ormconfig.js
+        read_only: true
+      - type: bind
+        source: ../package.json
+        target: /fedired/packages/backend/package.json
+        read_only: true
+      - type: bind
+        source: ../../fedired-js/built
+        target: /fedired/packages/fedired-js/built
+        read_only: true
+      - type: bind
+        source: ../../fedired-js/package.json
+        target: /fedired/packages/fedired-js/package.json
+        read_only: true
+      - type: bind
+        source: ../../fedired-reversi/built
+        target: /fedired/packages/fedired-reversi/built
+        read_only: true
+      - type: bind
+        source: ../../fedired-reversi/package.json
+        target: /fedired/packages/fedired-reversi/package.json
+        read_only: true
+      - type: bind
+        source: ../../../healthcheck.sh
+        target: /fedired/healthcheck.sh
+        read_only: true
+      - type: bind
+        source: ../../../package.json
+        target: /fedired/package.json
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-lock.yaml
+        target: /fedired/pnpm-lock.yaml
+        read_only: true
+      - type: bind
+        source: ../../../pnpm-workspace.yaml
+        target: /fedired/pnpm-workspace.yaml
+        read_only: true
+      - type: bind
+        source: ./certificates/rootCA.crt
+        target: /usr/local/share/ca-certificates/rootCA.crt
+        read_only: true
+    working_dir: /fedired
+    command: >
+      bash -c "
+        corepack enable && corepack prepare
+        pnpm -F backend migrate
+        pnpm -F backend start
+      "
+    healthcheck:
+      test: bash /fedired/healthcheck.sh
+      interval: 5s
+      retries: 20
+
+  db:
+    image: postgres:15-alpine
+    env_file:
+      - ./.config/docker.env
+    volumes:
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 5s
+      retries: 20

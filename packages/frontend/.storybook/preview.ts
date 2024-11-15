@@ -32,7 +32,7 @@ function loadTheme(applyTheme: typeof import('../src/scripts/theme')['applyTheme
 	}
 	const observer = new MutationObserver((entries) => {
 		for (const entry of entries) {
-			if (entry.attributeName === 'data-fedired-theme') {
+			if (entry.attributeName === 'data-misskey-theme') {
 				const target = entry.target as HTMLElement;
 				const theme = themes[target.dataset.fediredTheme];
 				if (theme) {
@@ -45,7 +45,7 @@ function loadTheme(applyTheme: typeof import('../src/scripts/theme')['applyTheme
 	});
 	observer.observe(document.documentElement, {
 		attributes: true,
-		attributeFilter: ['data-fedired-theme'],
+		attributeFilter: ['data-misskey-theme'],
 	});
 	unobserve = () => observer.disconnect();
 }

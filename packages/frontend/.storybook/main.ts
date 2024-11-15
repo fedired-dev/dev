@@ -23,7 +23,7 @@ const config = {
 		getAbsolutePath('@storybook/addon-links'),
 		getAbsolutePath('@storybook/addon-storysource'),
 		getAbsolutePath('@storybook/addon-mdx-gfm'),
-		resolve(_dirname, '../node_modules/storybook-addon-fedired-theme'),
+		resolve(_dirname, '../node_modules/storybook-addon-misskey-theme'),
 	],
 	framework: {
 		name: getAbsolutePath('@storybook/vue3-vite') as '@storybook/vue3-vite',

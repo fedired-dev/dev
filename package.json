@@ -15,7 +15,7 @@
 		"packages/sw",
 		"packages/fedired-js",
 		"packages/fedired-reversi",
-		"packages/fedired-bubble-game"
+		"packages/misskey-bubble-game"
 	],
 	"private": true,
 	"scripts": {

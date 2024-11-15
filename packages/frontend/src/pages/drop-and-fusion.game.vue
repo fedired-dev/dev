@@ -194,7 +194,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 import { computed, onDeactivated, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
 import * as Matter from 'matter-js';
 import * as Fedired from 'fedired-js';
-import { DropAndFusionGame, Mono } from 'fedired-bubble-game';
+import { DropAndFusionGame, Mono } from 'misskey-bubble-game';
 import { definePageMetadata } from '@/scripts/page-metadata.js';
 import MkRippleEffect from '@/components/MkRippleEffect.vue';
 import * as os from '@/os.js';

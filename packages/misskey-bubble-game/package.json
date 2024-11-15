@@ -1,6 +1,6 @@
 {
 	"type": "module",
-	"name": "fedired-bubble-game",
+	"name": "misskey-bubble-game",
 	"version": "0.0.1",
 	"main": "./built/index.js",
 	"types": "./built/index.d.ts",

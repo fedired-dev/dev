@@ -36,7 +36,7 @@ await Promise.all([
 		stdout: process.stdout,
 		stderr: process.stderr,
 	}),
-	execa('pnpm', ['--filter', 'fedired-bubble-game', 'build'], {
+	execa('pnpm', ['--filter', 'misskey-bubble-game', 'build'], {
 		cwd: _dirname + '/../',
 		stdout: process.stdout,
 		stderr: process.stderr,
@@ -97,7 +97,7 @@ execa('pnpm', ['--filter', 'fedired-reversi', 'watch'], {
 	stderr: process.stderr,
 });
 
-execa('pnpm', ['--filter', 'fedired-bubble-game', 'watch'], {
+execa('pnpm', ['--filter', 'misskey-bubble-game', 'watch'], {
 	cwd: _dirname + '/../',
 	stdout: process.stdout,
 	stderr: process.stderr,

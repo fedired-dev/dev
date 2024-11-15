@@ -796,9 +796,9 @@ importers:
       mfm-js:
         specifier: 0.24.0
         version: 0.24.0
-      fedired-bubble-game:
+      misskey-bubble-game:
         specifier: workspace:*
-        version: link:../fedired-bubble-game
+        version: link:../misskey-bubble-game
       fedired-js:
         specifier: workspace:*
         version: link:../fedired-js
@@ -1247,7 +1247,7 @@ importers:
         specifier: 9.4.3
         version: 9.4.3(eslint@9.14.0)
 
-  packages/fedired-bubble-game:
+  packages/misskey-bubble-game:
     dependencies:
       eventemitter3:
         specifier: 5.0.1

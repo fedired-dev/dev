@@ -1,11 +1,10 @@
 /*
- * SPDX-FileCopyrightText: Fedired
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-
 import { Entity, Column, Index, OneToOne, JoinColumn, PrimaryColumn } from 'typeorm';
-import { obsoleteNotificationTypes, followingVisibilities, followersVisibilities, notificationTypes } from '@/types.js';
+import { followingVisibilities, followersVisibilities } from '@/types.js';
 import { id } from './util/id.js';
 import { MiUser } from './User.js';
 import { MiPage } from './Page.js';

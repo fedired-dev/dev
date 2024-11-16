@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						<img src="/client-assets/drop-and-fusion/go.png" :class="$style.readyGo_img"/>
 					</div>
 				</Transition>
-	
+
 				<div :class="$style.header">
 					<div class="_woodenFrame" :class="[$style.headerTitle]">
 						<div class="_woodenFrameInner">
@@ -54,7 +54,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div ref="containerEl" :class="[$style.gameContainer, { [$style.gameOver]: isGameOver && !replaying }]" @contextmenu.stop.prevent @click.stop.prevent="onClick" @touchmove.stop.prevent="onTouchmove" @touchend="onTouchend" @mousemove="onMousemove">
 					<img v-if="defaultStore.state.darkMode" src="/client-assets/drop-and-fusion/frame-dark.svg" :class="$style.mainFrameImg"/>
 					<img v-else src="/client-assets/drop-and-fusion/frame-light.svg" :class="$style.mainFrameImg"/>
@@ -107,7 +107,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					</div>
 					<div v-if="replaying" :class="$style.replayIndicator"><span :class="$style.replayIndicatorText"><i class="ti ti-player-play"></i> {{ i18n.ts.replaying }}</span></div>
 				</div>
-	
+
 				<div v-if="replaying" class="_woodenFrame">
 					<div class="_woodenFrameInner">
 						<div style="background: #0004;">
@@ -122,7 +122,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div v-if="isGameOver" class="_woodenFrame">
 					<div class="_woodenFrameInner">
 						<div class="_buttonsCenter">
@@ -133,7 +133,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div style="display: flex;">
 					<div class="_woodenFrame" style="flex: 1; margin-right: 10px;">
 						<div class="_woodenFrameInner">
@@ -153,7 +153,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div v-if="showConfig" class="_woodenFrame">
 					<div class="_woodenFrameInner">
 						<div class="_gaps">
@@ -166,7 +166,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div class="_woodenFrame">
 					<div class="_woodenFrameInner">
 						<div>FUSION RECIPE</div>
@@ -178,7 +178,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 						</div>
 					</div>
 				</div>
-	
+
 				<div class="_woodenFrame">
 					<div class="_woodenFrameInner">
 						<MkButton v-if="!isGameOver && !replaying" full danger @click="surrender">{{ i18n.ts.surrender }}</MkButton>
@@ -189,7 +189,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		</div>
 	</MkSpacer>
 	</template>
-	
+
 	<script lang="ts" setup>
 	import { computed, onDeactivated, onMounted, onUnmounted, ref, shallowRef, watch } from 'vue';
 	import * as Matter from 'matter-js';
@@ -211,7 +211,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	import * as sound from '@/scripts/sound.js';
 	import MkRange from '@/components/MkRange.vue';
 	import { copyToClipboard } from '@/scripts/copy-to-clipboard.js';
-	
+
 	type FrontendMonoDefinition = {
 		id: string;
 		img: string;
@@ -220,7 +220,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		spriteScale: number;
 		sfxPitch: number;
 	};
-	
+
 	const NORAML_MONOS: FrontendMonoDefinition[] = [{
 		id: '9377076d-c980-4d83-bdaf-175bc58275b7',
 		sfxPitch: 0.25,
@@ -292,7 +292,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		imgSizeY: 256,
 		spriteScale: 1.12,
 	}];
-	
+
 	const YEN_MONOS: FrontendMonoDefinition[] = [{
 		id: '880f9bd9-802f-4135-a7e1-fd0e0331f726',
 		sfxPitch: 0.25,
@@ -364,7 +364,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		imgSizeY: 256,
 		spriteScale: 0.97,
 	}];
-	
+
 	const SQUARE_MONOS: FrontendMonoDefinition[] = [{
 		id: 'f75fd0ba-d3d4-40a4-9712-b470e45b0525',
 		sfxPitch: 0.25,
@@ -436,7 +436,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		imgSizeY: 256,
 		spriteScale: 1.12,
 	}];
-	
+
 	const SWEETS_MONOS: FrontendMonoDefinition[] = [{
 		id: '77f724c0-88be-4aeb-8e1a-a00ed18e3844',
 		sfxPitch: 0.25,
@@ -508,16 +508,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 		imgSizeY: 32,
 		spriteScale: 1,
 	}];
-	
+
 	const props = defineProps<{
 		gameMode: 'normal' | 'square' | 'yen' | 'sweets' | 'space';
 		mute: boolean;
 	}>();
-	
+
 	const emit = defineEmits<{
 		(ev: 'end'): void;
 	}>();
-	
+
 	const monoDefinitions = computed(() => {
 		return props.gameMode === 'normal' ? NORAML_MONOS :
 			props.gameMode === 'square' ? SQUARE_MONOS :
@@ -526,7 +526,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			props.gameMode === 'space' ? NORAML_MONOS :
 			[] as never;
 	});
-	
+
 	function getScoreUnit(gameMode: string) {
 		return gameMode === 'normal' ? 'pt' :
 			gameMode === 'square' ? 'pt' :
@@ -534,20 +534,20 @@ SPDX-License-Identifier: AGPL-3.0-only
 			gameMode === 'sweets' ? 'kcal' :
 			'' as never;
 	}
-	
+
 	function getMonoRenderOptions(mono: Mono) {
 		const def = monoDefinitions.value.find(x => x.id === mono.id)!;
 		return {
-	
+
 			sprite: {
 				texture: def.img,
 				xScale: (mono.sizeX / def.imgSizeX) * def.spriteScale,
 				yScale: (mono.sizeY / def.imgSizeY) * def.spriteScale,
 			},
-	
+
 		};
 	}
-	
+
 	let viewScale = 1;
 	let seed: string = Date.now().toString();
 	let containerElRect: DOMRect | null = null;
@@ -564,7 +564,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		getMonoRenderOptions,
 	});
 	attachGameEvents();
-	
+
 	const containerEl = shallowRef<HTMLElement>();
 	const canvasEl = shallowRef<HTMLCanvasElement>();
 	const dropperX = ref(0);
@@ -587,17 +587,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 	const currentFrame = ref(0);
 	const bgmVolume = ref(defaultStore.state.dropAndFusion.bgmVolume);
 	const sfxVolume = ref(defaultStore.state.dropAndFusion.sfxVolume);
-	
+
 	watch(replayPlaybackRate, (newValue) => {
 		game.replayPlaybackRate = newValue;
 	});
-	
+
 	watch(bgmVolume, (newValue) => {
 		if (bgmNodes) {
 			bgmNodes.gainNode.gain.value = props.mute ? 0 : newValue;
 		}
 	});
-	
+
 	function createRendererInstance(game: DropAndFusionGame) {
 		return Matter.Render.create({
 			engine: game.engine,
@@ -613,14 +613,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 			},
 		});
 	}
-	
+
 	function loadMonoTextures() {
 		async function loadSingleMonoTexture(mono: FrontendMonoDefinition) {
 			if (renderer == null) return;
-	
+
 			// Matter-js内にキャッシュがある場合はスキップ
 			if (renderer.textures[mono.img]) return;
-	
+
 			let src = mono.img;
 			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			if (monoTextureUrls[mono.img]) {
@@ -636,22 +636,22 @@ SPDX-License-Identifier: AGPL-3.0-only
 				src = URL.createObjectURL(blob);
 				monoTextureUrls[mono.img] = src;
 			}
-	
+
 			const image = new Image();
 			image.src = src;
 			renderer.textures[mono.img] = image;
 		}
-	
+
 		return Promise.all(monoDefinitions.value.map(x => loadSingleMonoTexture(x)));
 	}
-	
+
 	function getTextureImageUrl(mono: Mono) {
 		const def = monoDefinitions.value.find(x => x.id === mono.id)!;
-	
+
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (monoTextureUrls[def.img]) {
 			return monoTextureUrls[def.img];
-	
+
 			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		} else if (monoTextures[def.img]) {
 			// Gameクラス内にキャッシュがある場合はそれを使う
@@ -662,7 +662,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			return def.img;
 		}
 	}
-	
+
 	function tick() {
 		const hasNextTick = game.tick();
 		if (hasNextTick) {
@@ -671,7 +671,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			tickRaf = null;
 		}
 	}
-	
+
 	function tickReplay() {
 		let hasNextTick;
 		for (let i = 0; i < replayPlaybackRate.value; i++) {
@@ -694,19 +694,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 						break;
 				}
 			}
-	
+
 			hasNextTick = game.tick();
 			currentFrame.value = game.frame;
 			if (!hasNextTick) break;
 		}
-	
+
 		if (hasNextTick) {
 			tickRaf = window.requestAnimationFrame(tickReplay);
 		} else {
 			tickRaf = null;
 		}
 	}
-	
+
 	async function start() {
 		renderer = createRendererInstance(game);
 		await loadMonoTextures();
@@ -717,9 +717,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 		Matter.Render.run(renderer);
 		game.start();
 		window.requestAnimationFrame(tick);
-	
+
 		gameLoaded.value = true;
-	
+
 		window.setTimeout(() => {
 			readyGo.value = 'go';
 			window.setTimeout(() => {
@@ -727,41 +727,41 @@ SPDX-License-Identifier: AGPL-3.0-only
 			}, 1000);
 		}, 1500);
 	}
-	
+
 	function onClick(ev: MouseEvent) {
 		if (!containerElRect) return;
 		if (replaying.value) return;
 		const x = (ev.clientX - containerElRect.left) / viewScale;
 		game.drop(x);
 	}
-	
+
 	function onTouchend(ev: TouchEvent) {
 		if (!containerElRect) return;
 		if (replaying.value) return;
 		const x = (ev.changedTouches[0].clientX - containerElRect.left) / viewScale;
 		game.drop(x);
 	}
-	
+
 	function onMousemove(ev: MouseEvent) {
 		if (!containerElRect) return;
 		const x = (ev.clientX - containerElRect.left);
 		moveDropper(containerElRect, x);
 	}
-	
+
 	function onTouchmove(ev: TouchEvent) {
 		if (!containerElRect) return;
 		const x = (ev.touches[0].clientX - containerElRect.left);
 		moveDropper(containerElRect, x);
 	}
-	
+
 	function moveDropper(rect: DOMRect, x: number) {
 		dropperX.value = Math.min(rect.width * ((game.GAME_WIDTH - game.PLAYAREA_MARGIN) / game.GAME_WIDTH), Math.max(rect.width * (game.PLAYAREA_MARGIN / game.GAME_WIDTH), x));
 	}
-	
+
 	function hold() {
 		game.hold();
 	}
-	
+
 	async function surrender() {
 		const { canceled } = await os.confirm({
 			type: 'warning',
@@ -770,7 +770,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		if (canceled) return;
 		game.surrender();
 	}
-	
+
 	async function restart() {
 		reset();
 		game = new DropAndFusionGame({
@@ -781,7 +781,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		attachGameEvents();
 		await start();
 	}
-	
+
 	function reset() {
 		dispose();
 		seed = Date.now().toString();
@@ -799,7 +799,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		gameLoaded.value = false;
 		readyGo.value = null;
 	}
-	
+
 	function dispose() {
 		game.dispose();
 		if (renderer) Matter.Render.stop(renderer);
@@ -807,11 +807,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 			window.cancelAnimationFrame(tickRaf);
 		}
 	}
-	
+
 	function backToTitle() {
 		emit('end');
 	}
-	
+
 	function replay() {
 		replaying.value = true;
 		dispose();
@@ -832,12 +832,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 			window.requestAnimationFrame(tickReplay);
 		});
 	}
-	
+
 	function endReplay() {
 		replaying.value = false;
 		dispose();
 	}
-	
+
 	function exportLog() {
 		if (!logs) return;
 		const data = JSON.stringify({
@@ -850,7 +850,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		copyToClipboard(data);
 		os.success();
 	}
-	
+
 	function updateSettings<
 		K extends keyof typeof defaultStore.state.dropAndFusion,
 		V extends typeof defaultStore.state.dropAndFusion[K],
@@ -862,7 +862,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			...changes,
 		});
 	}
-	
+
 	function loadImage(url: string) {
 		return new Promise<HTMLImageElement>(res => {
 			const img = new Image();
@@ -872,7 +872,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			});
 		});
 	}
-	
+
 	function getGameImageDriveFile() {
 		return new Promise<Fedired.entities.DriveFile | null>(res => {
 			const dcanvas = document.createElement('canvas');
@@ -887,19 +887,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 				const [frame, logo] = images;
 				ctx.fillStyle = '#fff';
 				ctx.fillRect(0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-	
+
 				ctx.drawImage(frame, 0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
 				ctx.drawImage(canvasEl.value!, 0, 0, game.GAME_WIDTH, game.GAME_HEIGHT);
-	
+
 				ctx.fillStyle = '#000';
 				ctx.font = '16px bold sans-serif';
 				ctx.textBaseline = 'top';
 				ctx.fillText(`SCORE: ${score.value.toLocaleString()}${getScoreUnit(props.gameMode)}`, 10, 10);
-	
+
 				ctx.globalAlpha = 0.7;
 				ctx.drawImage(logo, game.GAME_WIDTH * 0.55, 6, game.GAME_WIDTH * 0.45, game.GAME_WIDTH * 0.45 * (logo.height / logo.width));
 				ctx.globalAlpha = 1;
-	
+
 				dcanvas.toBlob(blob => {
 					if (!blob) return res(null);
 					if ($i == null) return res(null);
@@ -911,7 +911,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 					if (defaultStore.state.uploadFolder) {
 						formData.append('folderId', defaultStore.state.uploadFolder);
 					}
-	
+
 					window.fetch(apiUrl + '/drive/files/create', {
 						method: 'POST',
 						body: formData,
@@ -921,12 +921,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 							res(f);
 						});
 				}, 'image/png');
-	
+
 				dcanvas.remove();
 			});
 		});
 	}
-	
+
 	async function share() {
 		const uploading = getGameImageDriveFile();
 		os.promiseDialog(uploading);
@@ -939,12 +939,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 			instant: true,
 		});
 	}
-	
+
 	function attachGameEvents() {
 		game.addListener('changeScore', value => {
 			score.value = value;
 		});
-	
+
 		game.addListener('changeCombo', value => {
 			if (value === 0) {
 				comboPrev.value = combo.value;
@@ -954,15 +954,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 			maxCombo.value = Math.max(maxCombo.value, value);
 			combo.value = value;
 		});
-	
+
 		game.addListener('changeStock', value => {
 			currentPick.value = JSON.parse(JSON.stringify(value[0]));
 			stock.value = JSON.parse(JSON.stringify(value.slice(1)));
 		});
-	
+
 		game.addListener('changeHolding', value => {
 			holdingStock.value = value;
-	
+
 			if (!props.mute) {
 				sound.playUrl('/client-assets/drop-and-fusion/hold.mp3', {
 					volume: 0.5 * sfxVolume.value,
@@ -970,7 +970,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				});
 			}
 		});
-	
+
 		game.addListener('dropped', (x) => {
 			if (!props.mute) {
 				const panV = x - game.PLAYAREA_MARGIN;
@@ -990,9 +990,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 					});
 				}
 			}
-	
+
 			if (replaying.value) return;
-	
+
 			dropReady.value = false;
 			window.setTimeout(() => {
 				if (!isGameOver.value) {
@@ -1000,27 +1000,27 @@ SPDX-License-Identifier: AGPL-3.0-only
 				}
 			}, game.frameToMs(game.DROP_COOLTIME));
 		});
-	
+
 		game.addListener('fusioned', (x, y, nextMono, scoreDelta) => {
 			if (!canvasEl.value) return;
-	
+
 			const rect = canvasEl.value.getBoundingClientRect();
 			const domX = rect.left + (x * viewScale);
 			const domY = rect.top + (y * viewScale);
 			const scoreUnit = getScoreUnit(props.gameMode);
-	
+
 			{
 				const { dispose } = os.popup(MkRippleEffect, { x: domX, y: domY }, {
 					end: () => dispose(),
 				});
 			}
-	
+
 			{
 				const { dispose } = os.popup(MkPlusOneEffect, { x: domX, y: domY, value: scoreDelta + (scoreUnit === 'pt' ? '' : scoreUnit) }, {
 					end: () => dispose(),
 				});
 			}
-	
+
 			if (nextMono) {
 				const def = monoDefinitions.value.find(x => x.id === nextMono.id)!;
 				if (!props.mute) {
@@ -1048,12 +1048,12 @@ SPDX-License-Identifier: AGPL-3.0-only
 				}
 			}
 		});
-	
+
 		const minCollisionEnergyForSound = 2.5;
 		const maxCollisionEnergyForSound = 9;
 		const soundPitchMax = 4;
 		const soundPitchMin = 0.5;
-	
+
 		game.addListener('collision', (energy, bodyA, bodyB) => {
 			if (!props.mute && (energy > minCollisionEnergyForSound)) {
 				const volume = (Math.min(maxCollisionEnergyForSound, energy - minCollisionEnergyForSound) / maxCollisionEnergyForSound) / 4;
@@ -1064,7 +1064,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				const panW = game.GAME_WIDTH - game.PLAYAREA_MARGIN - game.PLAYAREA_MARGIN;
 				const pan = ((panV / panW) - 0.5) * 2;
 				const pitch = soundPitchMin + ((soundPitchMax - soundPitchMin) * (1 - (Math.min(10, energy) / 10)));
-	
+
 				if (props.gameMode === 'yen') {
 					sound.playUrl('/client-assets/drop-and-fusion/collision_yen.mp3', {
 						volume: volume * sfxVolume.value,
@@ -1080,21 +1080,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 				}
 			}
 		});
-	
+
 		game.addListener('monoAdded', (mono) => {
 			if (replaying.value) return;
-	
+
 			// 実績関連
 			if (mono.level === 10) {
 				claimAchievement('bubbleGameExplodingHead');
-	
+
 				const monos = game.getActiveMonos();
 				if (monos.filter(x => x.level === 10).length >= 2) {
 					claimAchievement('bubbleGameDoubleExplodingHead');
 				}
 			}
 		});
-	
+
 		game.addListener('gameOver', () => {
 			if (!props.mute) {
 				if (props.gameMode === 'yen') {
@@ -1107,18 +1107,18 @@ SPDX-License-Identifier: AGPL-3.0-only
 					});
 				}
 			}
-	
+
 			if (replaying.value) {
 				endReplay();
 				return;
 			}
-	
+
 			logs = game.getLogs();
 			endedAtFrame = game.frame;
 			currentPick.value = null;
 			dropReady.value = false;
 			isGameOver.value = true;
-	
+
 			fediredApi('bubble-game/register', {
 				seed,
 				score: score.value,
@@ -1126,7 +1126,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				gameVersion: game.GAME_VERSION,
 				logs: DropAndFusionGame.serializeLogs(logs),
 			});
-	
+
 			if (props.gameMode === 'yen') {
 				yenTotal.value = (yenTotal.value ?? 0) + score.value;
 				fediredApi('i/registry/set', {
@@ -1135,10 +1135,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 					value: yenTotal.value,
 				});
 			}
-	
+
 			if (score.value > (highScore.value ?? 0)) {
 				highScore.value = score.value;
-	
+
 				fediredApi('i/registry/set', {
 					scope: ['dropAndFusionGame'],
 					key: 'highScore:' + props.gameMode,
@@ -1147,7 +1147,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			}
 		});
 	}
-	
+
 	useInterval(() => {
 		if (!canvasEl.value) return;
 		const actualCanvasWidth = canvasEl.value.getBoundingClientRect().width;
@@ -1155,7 +1155,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		viewScale = actualCanvasWidth / game.GAME_WIDTH;
 		containerElRect = containerEl.value?.getBoundingClientRect() ?? null;
 	}, 1000, { immediate: false, afterMounted: true });
-	
+
 	onMounted(async () => {
 		try {
 			highScore.value = await fediredApi('i/registry/get', {
@@ -1165,7 +1165,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		} catch (err) {
 			highScore.value = null;
 		}
-	
+
 		if (props.gameMode === 'yen') {
 			try {
 				yenTotal.value = await fediredApi('i/registry/get', {
@@ -1184,7 +1184,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 				}
 			}
 		}
-	
+
 		/*
 		const getVerticesFromSvg = async (path: string) => {
 			const svgDoc = await fetch(path)
@@ -1200,14 +1200,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 			});
 			return vertices;
 		};
-	
+
 		getVerticesFromSvg('/client-assets/drop-and-fusion/sweets_monos/verts/doughnut_color.svg').then((vertices) => {
 			console.log('doughnut_color', vertices);
 		});
 		*/
-	
+
 		await start();
-	
+
 		const bgmBuffer = await sound.loadAudio('/client-assets/drop-and-fusion/bgm_1.mp3');
 		if (!bgmBuffer) return;
 		bgmNodes = sound.createSourceNode(bgmBuffer, {
@@ -1217,23 +1217,23 @@ SPDX-License-Identifier: AGPL-3.0-only
 		bgmNodes.soundSource.loop = true;
 		bgmNodes.soundSource.start();
 	});
-	
+
 	onUnmounted(() => {
 		dispose();
 		bgmNodes?.soundSource.stop();
 	});
-	
+
 	onDeactivated(() => {
 		dispose();
 		bgmNodes?.soundSource.stop();
 	});
-	
+
 	definePageMetadata(() => ({
 		title: i18n.ts.bubbleGame,
 		icon: 'ti ti-apple',
 	}));
 	</script>
-	
+
 	<style lang="scss" module>
 	.transition_zoom_move,
 	.transition_zoom_enterActive,
@@ -1245,7 +1245,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		opacity: 0;
 		transform: scale(0.8);
 	}
-	
+
 	.transition_stock_move,
 	.transition_stock_enterActive,
 	.transition_stock_leaveActive {
@@ -1259,7 +1259,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	.transition_stock_leaveActive {
 		position: absolute;
 	}
-	
+
 	.transition_picked_move,
 	.transition_picked_enterActive {
 		transition: opacity 0.5s cubic-bezier(0,.5,.5,1), transform 0.5s cubic-bezier(0,.5,.5,1) !important;
@@ -1275,7 +1275,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 	.transition_picked_leaveActive {
 		position: absolute;
 	}
-	
+
 	.transition_combo_move,
 	.transition_combo_enterActive {
 		transition: all 0s !important;
@@ -1291,22 +1291,22 @@ SPDX-License-Identifier: AGPL-3.0-only
 	.transition_combo_leaveActive {
 		position: absolute;
 	}
-	
+
 	.root {
 		margin: 0 auto;
 		max-width: 600px;
 		user-select: none;
-	
+
 		* {
 			user-select: none;
 		}
 	}
-	
+
 	.loadingScreen {
 		text-align: center;
 		padding: 32px;
 	}
-	
+
 	.readyGo_bg {
 		position: absolute;
 		top: 0;
@@ -1316,7 +1316,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		z-index: 100;
 		backdrop-filter: blur(4px);
 	}
-	
+
 	.readyGo_ready,
 	.readyGo_go {
 		position: absolute;
@@ -1330,13 +1330,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 		z-index: 101;
 		pointer-events: none;
 	}
-	
+
 	.readyGo_img {
 		display: block;
 		width: 250px;
 		max-width: 100%;
 	}
-	
+
 	.header {
 		position: relative;
 		z-index: 10;
@@ -1344,21 +1344,21 @@ SPDX-License-Identifier: AGPL-3.0-only
 		grid-template-columns: 1fr;
 		grid-template-rows: auto auto;
 		gap: 8px;
-	
+
 		> .headerTitle {
 			text-align: center;
 		}
-	
+
 		@media (min-width: 500px) {
 			grid-template-columns: 1fr auto;
 			grid-template-rows: auto;
-	
+
 			> .headerTitle {
 				text-align: start;
 			}
 		}
 	}
-	
+
 	.mainFrameImg {
 		position: absolute;
 		top: 0;
@@ -1369,7 +1369,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		pointer-events: none;
 		user-select: none;
 	}
-	
+
 	.canvas {
 		position: relative;
 		display: block;
@@ -1379,17 +1379,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 		pointer-events: none;
 		user-select: none;
 	}
-	
+
 	.gameContainer {
 		position: relative;
 		margin-top: -20px;
 	}
-	
+
 	.stock {
 		pointer-events: none;
 		user-select: none;
 	}
-	
+
 	.combo {
 		position: absolute;
 		z-index: 3;
@@ -1404,7 +1404,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		pointer-events: none;
 		user-select: none;
 	}
-	
+
 	.dropperContainer {
 		position: absolute;
 		top: 0;
@@ -1414,7 +1414,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		user-select: none;
 		will-change: left;
 	}
-	
+
 	.currentMono {
 		position: absolute;
 		display: block;
@@ -1422,7 +1422,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		z-index: 2;
 		filter: drop-shadow(0 6px 16px #0007);
 	}
-	
+
 	.dropper {
 		position: relative;
 		top: 0;
@@ -1432,7 +1432,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		z-index: 2;
 		filter: drop-shadow(0 6px 16px #0007);
 	}
-	
+
 	.currentMonoArrow {
 		position: absolute;
 		width: 20px;
@@ -1441,7 +1441,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		z-index: 3;
 		animation: currentMonoArrow 2s ease infinite;
 	}
-	
+
 	.dropGuide {
 		position: absolute;
 		z-index: 3;
@@ -1451,7 +1451,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 		height: 85%;
 		background: #f002;
 	}
-	
+
 	.gameOverLabel {
 		position: absolute;
 		z-index: 10;
@@ -1469,13 +1469,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 		text-align: center;
 		font-weight: bold;
 	}
-	
+
 	.gameOver {
 		.canvas {
 			filter: grayscale(1);
 		}
 	}
-	
+
 	.replayIndicator {
 		position: absolute;
 		z-index: 10;
@@ -1488,17 +1488,17 @@ SPDX-License-Identifier: AGPL-3.0-only
 		border-radius: 6px;
 		pointer-events: none;
 	}
-	
+
 	.replayIndicatorText {
 		animation: replayIndicator-blink 2s infinite;
 	}
-	
+
 	@keyframes replayIndicator-blink {
 		0% { opacity: 1; }
 		50% { opacity: 0; }
 		100% { opacity: 1; }
 	}
-	
+
 	@keyframes currentMonoArrow {
 		0% { transform: translateY(0); }
 		25% { transform: translateY(-8px); }

@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
- 
+
 import { defineAsyncComponent, inject, onMounted, watch, ref } from 'vue';
 import * as Fedired from 'fedired-js';
 import { v4 as uuid } from 'uuid';

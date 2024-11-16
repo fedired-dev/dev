@@ -15,7 +15,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </template>
 
 <script lang="ts" setup>
- 
+
 import { watch, ref, shallowRef, onMounted, onUnmounted } from 'vue';
 import * as Fedired from 'fedired-js';
 import XContainer from '../page-editor.container.vue';

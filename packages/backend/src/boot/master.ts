@@ -34,15 +34,14 @@ function greet() {
 	if (!envOption.quiet) {
 		//#region Fedired logo
 		const v = `v${meta.version}`;
-		console.log(themeColor('  _____ _         _           '));
-		console.log(themeColor(' |     |_|___ ___| |_ ___ _ _ '));
-		console.log(themeColor(' | | | | |_ -|_ -| \'_| -_| | |'));
-		console.log(themeColor(' |_|_|_|_|___|___|_,_|___|_  |'));
-		console.log(' ' + chalk.gray(v) + themeColor('                        |___|\n'.substring(v.length)));
-		//#endregion
+		console.log(themeColor('  FFFFF  EEEEE  DDDD   III  RRRR   EEEEE  DDDD   '));
+		console.log(themeColor('  F      E      D   D   I   R   R  E      D   D  '));
+		console.log(themeColor('  FFFF   EEEE   D   D   I   RRRR   EEEE   D   D  '));
+		console.log(themeColor('  F      E      D   D   I   R  R   E      D   D  '));
+		console.log(themeColor('  F      EEEEE  DDDD   III  R   R  EEEEE  DDDD   '));
 
 		console.log(' Fedired is an open-source decentralized microblogging platform.');
-		console.log(chalk.rgb(255, 136, 0)(' If you like Fedired, please donate to support development. https://www.patreon.com/syuilo'));
+		console.log(chalk.rgb(255, 136, 0)(' If you like Fedired, please donate to support development. https://www.patreon.com/fedired'));
 
 		console.log('');
 		console.log(chalkTemplate`--- ${os.hostname()} {gray (PID: ${process.pid.toString()})} ---`);

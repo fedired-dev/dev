@@ -1,7 +1,7 @@
 {
 	"type": "module",
 	"name": "fedired-js",
-	"version": "2024.11.0-alpha.1",
+	"version": "0.0.1-alpha.1",
 	"description": "Fedired SDK for JavaScript",
 	"license": "MIT",
 	"main": "./built/index.js",
